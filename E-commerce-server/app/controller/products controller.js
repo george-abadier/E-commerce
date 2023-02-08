@@ -1,7 +1,7 @@
 const Helper = require("../helper")
 const productModel = require('../../db/models/products.model')
 const categoryModel = require("../../db/models/category.model")
-const { upload } = require("../middleware")
+const { upload, uploadfile } = require("../middleware")
 const multer = require('multer')
 class Product {
     static add = (req, res) => {
@@ -25,10 +25,47 @@ class Product {
             return this.ifYoursD0(req, (req) => { return productModel.findByIdAndUpdate(req.params.id, { $set: req.body }, { returnDocument: 'after' }) })
         }, 'product edited successfully')
     }
+    static uploadNewImage = (req, res) => {
+        return this.ifYoursD0(req, (req) => {
+            const upload = uploadfile('productsimages')
+            const uploadImage = upload.single('image')
+            uploadImage(req, res, async function (e) {
+                if (e instanceof multer.MulterError)
+                    Helper.formatMyAPIRes(res, 500, false, e, e.message + 'its a multer error')
+                else if (e) {
+                    Helper.formatMyAPIRes(res, 500, false, e, e.message)
+                }
+                else {
+                    try {
+                        let image = req.file.path.replace('statics\\', '')
+                        image = 'http://localhost:3000/' + image.replace('\\', '/')
+                        const result = await productModel.findByIdAndUpdate(req.params.id, { $push: { images: image } }, { returnDocument: 'after' })
+                        Helper.formatMyAPIRes(res, 200, true, { file: req.file, result }, 'your post added successfully')
+                    }
+                    catch (e) {
+                        Helper.formatMyAPIRes(res, 500, false, e, e.message)
+                    }
+                }
+            })
+        })
+    }
     static getAll = (req, res) => {
         Helper.handlingMyFunction(req, res, (req) => {
             return productModel.find().populate('from')
         }, 'here is all products')
+    }
+    static getLikedPro = (req, res) => {
+        Helper.handlingMyFunction(req, res, (req) => {
+            return req.user.liked
+        }, 'here is the products you liked')
+    }
+    static getMyProduct = (req, res) => {
+        Helper.handlingMyFunction(req, res,async (req) => {
+            await req.user.populate('myProducts')
+            if(true){
+                return req.user.myProducts
+            }
+        }, 'here is your products')
     }
     static getSingle = (req, res) => {
         Helper.handlingMyFunction(req, res, async (req) => {
@@ -38,7 +75,7 @@ class Product {
     static getByCategory = (req, res) => {
         Helper.handlingMyFunction(req, res, (req) => {
             Helper.isThisIdExistInThisModel(req.params.catId, categoryModel, 'category')
-            return productModel.find({category:req.params.catId}).populate('from')
+            return productModel.find({ category: req.params.catId }).populate('from')
         }, 'here is this category product')
     }
     static rate = async (req, res) => {
@@ -107,6 +144,19 @@ class Product {
             return product.save()
         }, 'increased')
     }
+    static addToMyLikedList = (req, res) => {
+        Helper.handlingMyFunction(req, res, async (req) => {
+            await Helper.isThisIdExistInThisModel(req.params.id, productModel, 'product')
+            if (true) {
+                const likedbefore = req.user.liked.find((pro) => { return String(pro) == String(req.params.id) })
+                if (likedbefore) {
+                    throw new Error('you already liked this product')
+                }
+                req.user.liked.push(req.params.id)
+                return req.user.save()
+            }
+        }, 'added successfully')
+    }
     static ifYoursD0 = async (req, fun) => {
         const product = await Helper.isThisIdExistInThisModel(req.params.id, productModel, 'product')
         if (product.ourOwn) {
@@ -138,6 +188,7 @@ const addCategory = (req, res) => {
     }, 'the new category added successfuly')
 }
 const addCategoryIcon = (req, res) => {
+    const upload = uploadfile('caticons')
     const uploadThisIcon = upload.single('caticon')
     uploadThisIcon(req, res, async function (e) {
         if (e instanceof multer.MulterError)

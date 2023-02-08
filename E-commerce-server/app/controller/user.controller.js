@@ -1,9 +1,11 @@
 const Helper = require("../helper")
-const { sendConfirmationEmail, sendResetPassEmail } = require("../mail")
+const { sendmail } = require("../mail")
 const userModel = require('../../db/models/user.model')
 const tokenModel = require('../../db/models/tokens.model')
 const jwt = require('jsonwebtoken')
 const roleModel = require("../../db/models/role.model")
+const { uploadfile } = require("../middleware")
+const multer = require("multer")
 class User {
     static signUp = async (req, res) => {
         try {
@@ -17,8 +19,12 @@ class User {
             }
             const user = userModel(req.body)
             const token = await tokenModel.creatToken(user._id)
-
-            sendConfirmationEmail(user.userName, user.email, token)
+            sendmail(user.email,'Please confirm your account',
+            `<h1>Email Confirmation</h1>
+          <h2>Hello ${user.userName}</h2>
+          <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+          <a href=http://localhost:3000/ecommerce/user/confirm/${token}> Click here</a>
+          </div>`)
             await tokenModel({ token, owner: user._id, date: new Date() }).save()
             await user.save()
             Helper.formatMyAPIRes(res, 200, true, {}, 'check your mail for confirmation')
@@ -87,7 +93,59 @@ class User {
                 throw e
             }
             const token = await tokenModel.creatToken(user._id, false)
-            sendResetPassEmail(user.userName, req.body.email, token)
+            sendmail(req.body.email,'change your pass from here',
+            `<h1>Email for reset your password</h1>
+          <h2>Hello ${user.userName}</h2>
+          <form method="post" action="http://localhost:3000/ecommerce/user/forgetpass/changepass/${token}">
+		<div><label for="email">your email</label>: <input value='${req.body.email}' style=" display: block;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.375rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	" type="email" name="email" id="email" required></div>
+		<div><label for="password">enter your new password</label>: <input style=" display: block;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.375rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	" type="password" name="password" id="password" required
+				pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})'></div>
+		<div><input style="
+		background-color:#0d6efd ; color: #fff;
+  --bs-btn-bg: #0d6efd;
+  border-color: #0d6efd;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0b5ed7;
+  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a58ca;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;" type="submit" value="submit"></div>
+	</form></div>`)
         }, 'check your mail')
     }
     static resetPass = async (req, res) => {
@@ -123,6 +181,44 @@ class User {
                 return req.user
             }
         }, 'congratulation you made a new account here is your profile')
+    }
+    static uploadMyImage=(req,res)=>{
+        const upload=uploadfile('usersimages')
+        const uploadImage = upload.single('image')
+        uploadImage(req, res, async function (e) {
+            if (e instanceof multer.MulterError)
+                Helper.formatMyAPIRes(res, 500, false, e, e.message + 'its a multer error')
+            else if (e) {
+                Helper.formatMyAPIRes(res, 500, false, e, e.message)
+            }
+            else {
+                try {
+                    let image = req.file.path.replace('statics\\', '')
+                    image = 'http://localhost:3000/' + image.replace('\\', '/')
+                    const result = await userModel.findByIdAndUpdate(req.user._id, { $set: { image } }, { returnDocument: 'after' })
+                    Helper.formatMyAPIRes(res, 200, true, { file: req.file, result }, 'your post added successfully')
+                }
+                catch (e) {
+                    Helper.formatMyAPIRes(res, 500, false, e, e.message)
+                }
+            }
+        })
+    } 
+    static editMyData=(req,res)=>{
+        Helper.handlingMyFunction(req,res,(req)=>{
+            for(let key in req.body){
+                if(key=='gender'||key=='age'||key=='userName'||key=='email'||key=='password'){
+                    req.user[key]=req.body[key]
+                }
+            }
+            return req.user.save()
+        },'the date that you able to update fro this api is updated')
+    }
+    static addPhoneNum=(req,res)=>{
+        Helper.handlingMyFunction(req,res,(req)=>{
+            req.user.phoneNums.push(req.body)
+            return req.user.save()
+        },'your number added successfully')
     }
     static changeRole = async (req, res) => {
         try {

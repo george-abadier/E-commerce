@@ -17,9 +17,11 @@ class Helper {
             }
         }
     }
-    static isThisIdExistInThisModel = async (id, model, modelName,populate) => {
+    static isThisIdExistInThisModel = async (id, model, modelName,populate,anotherpopulate) => {
         let exist
-        if(populate){
+        if(populate&&anotherpopulate){
+            exist = await model.findById(id).populate(populate).populate(anotherpopulate)
+        }else if(populate&&!anotherpopulate){
             exist = await model.findById(id).populate(populate)
         }else{
             exist = await model.findById(id)

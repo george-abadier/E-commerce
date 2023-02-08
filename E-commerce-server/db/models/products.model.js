@@ -22,6 +22,10 @@ const productSchema = mongoose.Schema({
         required: true,
         min: 1
     },
+    images: {
+        type: [String],
+        trim: true
+    },
     category: {
         type: mongoose.SchemaTypes.ObjectId,
         required: true,

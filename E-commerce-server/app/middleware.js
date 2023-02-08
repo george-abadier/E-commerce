@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
             return helper.formatMyAPIRes(res, 401, false, {}, 'invalid token ')
         }
 
-        const user = await userModel.findById(tokenExist.owner).populate('role')
+        const user = await userModel.findById(tokenExist.owner).populate('role').populate('liked')
         if (!user) {
             return helper.formatMyAPIRes(res, 401, false, {}, 'invalid token owner')
         } else {
@@ -38,7 +38,6 @@ const auth = async (req, res, next) => {
 }
 
 const authToThisRoute = async (req, res, next) => {
-    console.log(req.user)
     if (!req.user.role) {
         return helper.formatMyAPIRes(res, 401, false, null, 'you aren`t allowed to this route')
     }
@@ -52,9 +51,10 @@ const authToThisRoute = async (req, res, next) => {
         helper.formatMyAPIRes(res, 401, false, null, 'you aren`t allowed to this route')
     }
 }
-const storage = multer.diskStorage({
+const uploadfile=(foldername)=>{
+    const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'statics/caticons/')
+        cb(null, `statics/${foldername}/`)
     },
     filename: (req, file, cb) => {
         const myFileName = Date.now() + file.fieldname + file.originalname
@@ -73,4 +73,6 @@ const upload = multer(
         },
         limits: { fileSize: 5000000 }
     })
-module.exports = { auth, authToThisRoute, upload }
+    return upload
+}
+module.exports = { auth, authToThisRoute, uploadfile }

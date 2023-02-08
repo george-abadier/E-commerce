@@ -25,6 +25,9 @@ router.get('/logout', auth, User.logOut)
 
 
 router.get('/myprofile', auth, User.myProfile)
+router.put('/myimage', auth, User.uploadMyImage)
+router.put('/mydata', auth, User.editMyData)
+router.put('/addnum',auth,User.addPhoneNum)
 
 
 // privacy policy

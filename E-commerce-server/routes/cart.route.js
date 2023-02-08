@@ -10,7 +10,7 @@ router.post('/cartconfirm/:id', auth, Cart.confirmCart)
 router.get('/resendcartconfirm/:id', auth, Cart.resendConfirmationMail)
 router.put('/returnfromcartconfirm/:id', auth, Cart.returnToChange)
 router.get('/callbackcartconfirm/:token', Cart.confirmation)
-//employee dealing with cart
+//admin dealing with cart
 router.get('/cartsneedtobedone', auth, authToThisRoute, Cart.getCartTask)
 router.put('/goforward/:id', auth, authToThisRoute, Cart.nextStep)
 

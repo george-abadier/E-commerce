@@ -40,12 +40,7 @@ const cartSchema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         required: true,
         trim: true,
-        refPath: 'cartOwnerType'
-    },
-    cartOwnerType: {
-        type: String,
-        enum: ['users', 'employees'],
-        required: true,
+        ref: 'users'
     },
     phoneNumbers: {
         type: [phoneNumberSchema],
@@ -82,6 +77,11 @@ const cartSchema = mongoose.Schema({
             min: 1
         }
     }]
+})
+cartSchema.method('updateTotalPrice',function (){
+    this .totalPrice=this.products.reduce((total,product)=>{
+        return total+(product.product.price*product.number)
+    },0)
 })
 // cartSchema.method.isCompleted = function () {
 //     return this.completed

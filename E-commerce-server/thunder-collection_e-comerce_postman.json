@@ -1,0 +1,1308 @@
+{
+    "info": {
+        "name": "e-comerce",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "roles",
+            "item": [
+                {
+                    "name": "addRole",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/role",
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"role\":\"dfdsf\",\n  \"routes\":[ ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "addRouteToRole",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/role/routetorole/63e2356755257516346ae7cd",
+                            "path": [
+                                "routetorole",
+                                "63e2356755257516346ae7cd"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "route",
+                                    "value": "63e3f0d96741d6bfb5be6d2f"
+                                },
+                                {
+                                    "key": "saller",
+                                    "value": "63e2356755257516346ae7cd",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "admin",
+                                    "value": "63e2346155257516346ae7cb",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteRouteFromRole",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/role/routetorole/63e278f4e4256cb7b39e83ea",
+                            "path": [
+                                "routetorole",
+                                "63e278f4e4256cb7b39e83ea"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "route",
+                                    "value": "63e280bcf462a38c6207f3b8"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "editRole",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/role/63e278f4e4256cb7b39e83ea",
+                            "path": [
+                                "63e278f4e4256cb7b39e83ea"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"role\": \"project inserter\",\n  \"routes\": [\n    \"63aecb0f609cd49cad76d4e5\",\n    \"63aeccf75fef29fc31df7ce2\",\n    \"63e280bcf462a38c6207f3b8\"\n  ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "getRole",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/role/63e278f4e4256cb7b39e83ea",
+                            "path": [
+                                "63e278f4e4256cb7b39e83ea"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "deleteRole",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/role/63e278f4e4256cb7b39e83ea",
+                            "path": [
+                                "63e278f4e4256cb7b39e83ea"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "addRoute",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/role/route",
+                            "path": [
+                                "route"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"route\":\"/ecommerce/product/myproducts\",\n  \"method\":\"get\",\n  \"routeAction\":\"get my products\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "deleteRoute",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/role/route/63e280bcf462a38c6207f3b8",
+                            "path": [
+                                "route",
+                                "63e280bcf462a38c6207f3b8"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "changeRouteAction",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/role/route/63e280bcf462a38c6207f3b8/aaaaaaaaaaaaaaa",
+                            "path": [
+                                "route",
+                                "63e280bcf462a38c6207f3b8",
+                                "aaaaaaaaaaaaaaa"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "getAllAccessableRoutes",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/role/routes",
+                            "path": [
+                                "routes"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "getAllRoles",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/role/all",
+                            "path": [
+                                "all"
+                            ],
+                            "host": [
+                                "role"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "addUser",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/user/signup",
+                            "path": [
+                                "signup"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "userName",
+                                    "value": "merna mamdouh"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "mernamamdouh2@gmail.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "12345Gg?"
+                                },
+                                {
+                                    "key": "rememberMe",
+                                    "value": "false",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "age",
+                                    "value": "22"
+                                },
+                                {
+                                    "key": "gender",
+                                    "value": "male"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "myProfile",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/user/myprofile",
+                            "path": [
+                                "myprofile"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "getPrivacyPolicy",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/ecommerce/user/privacypolicy",
+                            "path": [
+                                "user",
+                                "privacypolicy"
+                            ],
+                            "host": [
+                                "ecommerce"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I1Njg3YTFmZDU2YmY0NWJjZGIzY2MiLCJpYXQiOjE2NzI4NDY1NDB9.k3JRvq15iJgyWWaUpQdbAbxn5Q7TkDNd5lbyRW49cyE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "logIn",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/user/login",
+                            "path": [
+                                "login"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "email",
+                                    "value": "applicationsofgeorge@gmail.com"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "12345Gg?"
+                                },
+                                {
+                                    "key": "rememberMe",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "logInWithFaceBook",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/ecommerce/user/facebooklogin",
+                            "path": [
+                                "user",
+                                "facebooklogin"
+                            ],
+                            "host": [
+                                "ecommerce"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "logInWithGoogle",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/user/googlelogin",
+                            "path": [
+                                "googlelogin"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "logOut",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/user/logout",
+                            "path": [
+                                "logout"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3NzY3Njh9.XOMvu6f3e8HywUR-KwQkiAnLw3jjkaXaFvbg81kqRVE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "forgetMyPass",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/user/forgetpass",
+                            "path": [
+                                "forgetpass"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "email",
+                                    "value": "applicationsofgeorge@gmail.com"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "change role",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/user/changerole/63e2e5917e36cf8e431cef9e",
+                            "path": [
+                                "changerole",
+                                "63e2e5917e36cf8e431cef9e"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "role",
+                                    "value": "63e2356755257516346ae7cd"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getAllUsers",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/user/all",
+                            "path": [
+                                "all"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "getuserdata",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/user/63e25280a3cc14ae97d925da",
+                            "path": [
+                                "63e25280a3cc14ae97d925da"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "add My Image",
+                    "request": {
+                        "method": "GET"
+                    }
+                },
+                {
+                    "name": "upload my image",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/user//myimage",
+                            "path": [
+                                "myimage"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "src": "c:\\Users\\Office\\Downloads\\Image_created_with_a_mobile_phone.png",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "edit my data",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/user/mydata",
+                            "path": [
+                                "mydata"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "password",
+                                    "value": "12345Gg<"
+                                },
+                                {
+                                    "key": "gender",
+                                    "value": "female"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "add my phone Number",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/user/addnum",
+                            "path": [
+                                "addnum"
+                            ],
+                            "host": [
+                                "user"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "number",
+                                    "value": "+2001202865148"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "home"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "products",
+            "item": [
+                {
+                    "name": "addProduct",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/product",
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyZTU5MTdlMzZjZjhlNDMxY2VmOWUiLCJpYXQiOjE2NzU4MTQ0MTl9.m_PeqzDv_01AlV24Xo2KPBcedcsBUdFV7BIexWFdk5U"
+                            },
+                            {
+                                "key": "for saller",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyZTU5MTdlMzZjZjhlNDMxY2VmOWUiLCJpYXQiOjE2NzU4MTQ0MTl9.m_PeqzDv_01AlV24Xo2KPBcedcsBUdFV7BIexWFdk5U",
+                                "disabled": true
+                            },
+                            {
+                                "key": "for admin",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "saed"
+                                },
+                                {
+                                    "key": "price",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "quantity",
+                                    "value": "5"
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "63e2d61776de251f8d11e9a1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "deleteProduct",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/product/63e2fb9e42a7a6e46b0b1ef4",
+                            "path": [
+                                "63e2fb9e42a7a6e46b0b1ef4"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "edit product",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/product/63e3009c090558ec29459800",
+                            "path": [
+                                "63e3009c090558ec29459800"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyZTU5MTdlMzZjZjhlNDMxY2VmOWUiLCJpYXQiOjE2NzU4MTQ0MTl9.m_PeqzDv_01AlV24Xo2KPBcedcsBUdFV7BIexWFdk5U"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "price",
+                                    "value": "6"
+                                },
+                                {
+                                    "key": "quantity",
+                                    "value": "3"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get all products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product",
+                            "host": [
+                                "product"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "get a product",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product/63e3009c090558ec29459800",
+                            "path": [
+                                "63e3009c090558ec29459800"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "rateProduct",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/product/rate/63e3004f090558ec294597f9",
+                            "path": [
+                                "rate",
+                                "63e3004f090558ec294597f9"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyZTU5MTdlMzZjZjhlNDMxY2VmOWUiLCJpYXQiOjE2NzU4MTQ0MTl9.m_PeqzDv_01AlV24Xo2KPBcedcsBUdFV7BIexWFdk5U"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "rate",
+                                    "value": "5"
+                                },
+                                {
+                                    "key": "rateComment",
+                                    "value": "aaaaaaaaaaa"
+                                },
+                                {
+                                    "key": "userID",
+                                    "value": "63d05d722b81058e4e2cac50",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "raterType",
+                                    "value": "",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "show product Rating",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product/showRatings/63e3004f090558ec294597f9",
+                            "path": [
+                                "showRatings",
+                                "63e3004f090558ec294597f9"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2QwMzBjMDhiYmE2OTBmMGM5ZjEwNDgiLCJpYXQiOjE2NzQ1ODg0NTZ9.hZMQxSsiBXfsYUx_o7Bk1KCw3yuIktjbH6FIkydFbCg",
+                                "disabled": true
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moreHelpful",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/product/blogmoreHelpful/63e3004f090558ec294597f9/63e31d5dfc0f34ef7d4c5196",
+                            "path": [
+                                "blogmoreHelpful",
+                                "63e3004f090558ec294597f9",
+                                "63e31d5dfc0f34ef7d4c5196"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "add category",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/product/category",
+                            "path": [
+                                "category"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "TechnologY"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "add icon to category",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/product/categoryicon/63e2d61776de251f8d11e9a1",
+                            "path": [
+                                "categoryicon",
+                                "63e2d61776de251f8d11e9a1"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "caticon",
+                                    "src": "c:\\Users\\Office\\Downloads\\Image_created_with_a_mobile_phone.png",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "delete category",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "/product/category/63e2c24f315845b63b324642",
+                            "path": [
+                                "category",
+                                "63e2c24f315845b63b324642"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "get product by category",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product/bycat/63e2d61776de251f8d11e9a1",
+                            "path": [
+                                "bycat",
+                                "63e2d61776de251f8d11e9a1"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "add image to product",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/product/addImage/63e3004f090558ec294597f9",
+                            "path": [
+                                "addImage",
+                                "63e3004f090558ec294597f9"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "src": "c:\\Users\\Office\\Downloads\\Image_created_with_a_mobile_phone.png",
+                                    "type": "file"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "likeThisproduct",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/product/like/63e3004f090558ec294597f5",
+                            "path": [
+                                "like",
+                                "63e3004f090558ec294597f5"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "get liked product",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product/liked",
+                            "path": [
+                                "liked"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "get my products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/product/myproducts",
+                            "path": [
+                                "myproducts"
+                            ],
+                            "host": [
+                                "product"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyZTU5MTdlMzZjZjhlNDMxY2VmOWUiLCJpYXQiOjE2NzU4MTQ0MTl9.m_PeqzDv_01AlV24Xo2KPBcedcsBUdFV7BIexWFdk5U"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "carts",
+            "item": [
+                {
+                    "name": "addToCart",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/cart/addtocart",
+                            "path": [
+                                "addtocart"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "product",
+                                    "value": "63e3004f090558ec294597f9"
+                                },
+                                {
+                                    "key": "number",
+                                    "value": "4"
+                                },
+                                {
+                                    "key": "price",
+                                    "value": "2"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "getMy cart",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/cart/mycart",
+                            "path": [
+                                "mycart"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "change number of product by num",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/cart/cartproduct",
+                            "path": [
+                                "cartproduct"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "product",
+                                    "value": "63e3004f090558ec294597f9"
+                                },
+                                {
+                                    "key": "number",
+                                    "value": "-2"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "confirmMyCart",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "/cart/cartconfirm/63e3ab14067feca1cbd09245",
+                            "path": [
+                                "cartconfirm",
+                                "63e3ab14067feca1cbd09245"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"fullname\":\"george ayman\",\n  \"location\":{\n    \"type\":\"home\",\n    \"address\":\"fddfssadsadd\"\n  },\n  \"paymentMethod\":\"cash\",\n  \"phoneNumbers\":[\n    {\n      \"type\":\"home\",\n      \"number\":\"+201202865148\"\n    },\n    {\n      \"type\":\"work\",\n      \"number\":\"+201281507948\"\n    }\n    ]\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "resend confirmation mail",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/cart/resendcartconfirm/63e3ab14067feca1cbd09245",
+                            "path": [
+                                "resendcartconfirm",
+                                "63e3ab14067feca1cbd09245"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "return to uncomplete status ",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/cart/returnfromcartconfirm/63e3ab14067feca1cbd09245",
+                            "path": [
+                                "returnfromcartconfirm",
+                                "63e3ab14067feca1cbd09245"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "send cart status mail",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "/cart/goforward/63e3ab14067feca1cbd09245",
+                            "path": [
+                                "goforward",
+                                "63e3ab14067feca1cbd09245"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU4NzMyNTZ9.hi_JB9PZCJRP8-4PKU7WE7M6x9ej8y3SNl4LliNtoIE"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "getcart need to be done",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "/cart/cartsneedtobedone",
+                            "path": [
+                                "cartsneedtobedone"
+                            ],
+                            "host": [
+                                "cart"
+                            ]
+                        },
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2UyNTI4MGEzY2MxNGFlOTdkOTI1ZGEiLCJpYXQiOjE2NzU3ODAyMTd9.en08n7fLygUTfcQJGx990Xwjnt4SntmZxa_IgPbsrOo"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

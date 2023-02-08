@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator')
 const bcrybt = require('bcryptjs')
+const role=require('./role.model')
 const userSchema = mongoose.Schema({
     userName: {
         type: String,
@@ -83,7 +84,7 @@ const userSchema = mongoose.Schema({
             required: true,
 
         },
-        date: {
+        seen: {
             type: Boolean,
             default: false
         },
@@ -111,6 +112,21 @@ userSchema.statics.logIn = async (email, enterdPassword) => {
     }
     return userData
 }
+userSchema.statics.notify = async (id, message) => {
+    if (id) {
+        await user.findByIdAndUpdate(id, { $push: { notifications: { message } } })
+    } else {
+        const adminID=await role.findOne({role:'admin'})
+        console.log(adminID)
+       const b= await user.updateMany({role:adminID._id},{ $push: { notifications: { message } } })
+       console.log(b)
+    }
+}
+userSchema.virtual('myProducts', {
+    ref: 'products',
+    localField: "_id",
+    foreignField: "from"
+})
 userSchema.methods.toJSON = function () {
     const userObject = this.toObject()
     delete userObject.__v
