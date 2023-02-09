@@ -1,5 +1,6 @@
 require('../db/connection')
 require('./passport')
+
 const cookieSession = require('cookie-session')
 const passport = require('passport');
 const express = require('express')

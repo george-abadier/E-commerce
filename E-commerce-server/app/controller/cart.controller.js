@@ -1,10 +1,12 @@
 const Helper = require("../helper");
 const cartModel = require('../../db/models/cart.model');
 const tokenModel = require('../../db/models/tokens.model')
-const {sendmail} = require("../mail");
+const { sendmail } = require("../mail");
 const jsonWebToken = require("jsonwebtoken");
 const productModel = require("../../db/models/products.model");
+const stripe = require('stripe')('sk_test_51MZMXCSJpTjOjMgXSH4JJCsc1aEQSgf528ijbmEfVqDq5oXta4w1AaEqfV32AsTRy0fiZtl8HI0AuG1XnchhbSqe00i5C4SvaM');
 const user = require("../../db/models/user.model");
+const cardModel = require("../../db/models/card.data");
 class Cart {
     static addToCart = (req, res) => {
         Helper.handlingMyFunction(req, res, async (req) => {
@@ -74,15 +76,11 @@ class Cart {
     static confirmCart = async (req, res) => {
         try {
             const fullNameReg = /^[a-zA-z]{3,}\s{1}[a-zA-Z]{3,}$/
-            const myCart = await Helper.isThisIdExistInThisModel(req.params.id, cartModel, 'cart', 'products.product','userID')
+            const myCart = await Helper.isThisIdExistInThisModel(req.params.id, cartModel, 'cart', 'products.product', 'userID')
             // console.log(myCart)
             if (myCart.status != 'not completed') {
                 throw new Error('this cart had a step forward this action for the uncompleted carts')
             }
-            if (!fullNameReg.test(req.body.fullname)) {
-                throw new Error('please enter your full name right')
-            }
-            myCart.fullname = req.body.fullname
             if (!req.body.location) {
                 throw new Error('please enter location to deliver to')
             }
@@ -95,20 +93,55 @@ class Cart {
                 throw new Error('please enter your the suitable payment method to you')
             }
             myCart.paymentMethod = req.body.paymentMethod
+            if (req.body.paymentMethod == 'credit') {
+                if(req.body.card.number&&req.body.card.exp_year&&req.body.card.exp_month&&req.body.card.cvc){
+                    const paymentMethod = await stripe.paymentMethods.create({
+                        type: 'card',
+                        card: req.body.card
+                    })
+                    const paymentIntent = await stripe.paymentIntents.create({
+                        payment_method: paymentMethod.id,
+                        amount: 5000,
+                        currency: 'inr',
+                        confirm: true,
+                        payment_method_types: ['card'],
+                    })
+                    myCart.paymentIntentId=paymentIntent.id
+                    myCart.paymentIntentUrl=paymentIntent.next_action.use_stripe_sdk.stripe_js
+                }else{
+                    throw new Error('your payment crd data is not completed')
+                }
+               
+            }
             let totalPrice = 0
             myCart.products.forEach(p => {
                 totalPrice += (p.product.price * p.number)
             })
+            
             myCart.totalPrice = totalPrice
             myCart.status = 'verification mode'
             await myCart.save()
             const confirmation = await tokenModel.creatToken(myCart._id, 0)
-            sendmail(myCart.userID.email,"Please confirm your cart",
+          if(myCart.paymentMethod=='credit'){
+            sendmail(myCart.userID.email, "Please confirm your cart",
             `<h1>Email Confirmation</h1>
+            <h2>Hello ${myCart.userID.userName}</h2>
+            <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+            <a onclick="()=>{
+                     document.getElementById("comfirm").click()
+            }" href=${myCart.paymentIntentUrl}> Click here first</a>
+            <p>make sure that you clicked the first url</p>
+            <a id="confirm" href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}> then click here</a>
+            </div>`)
+          }else{
+            sendmail(myCart.userID.email, "Please confirm your cart",
+                `<h1>Email Confirmation</h1>
             <h2>Hello ${myCart.userID.userName}</h2>
             <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
             <a href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}> Click here</a>
             </div>`)
+          }
+            // <a href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}></a>
             Helper.formatMyAPIRes(res, 200, true, {}, 'please check your mail quickly you have 10 mins then you will need to send another confirmation mail')
         } catch (e) {
             console.log(e)
@@ -132,11 +165,19 @@ class Cart {
             if (myCart.status != "verification mode") {
                 throw new Error('we had go forward with your cart after this action your cart ' + myCart.status)
             }
+            if(myCart.paymentMethod=='credit'){
+                const paymentIntent=await stripe.paymentIntents.retrieve(myCart.paymentIntentId)
+                if (paymentIntent.status!='succeeded'){
+                    myCart.status='not completed'
+                    await myCart.save()
+                    throw new Error('ther is some problem with your payment card data please try again')
+                }
+            }
             myCart.status = 'is being prepared'
             console.log(myCart.products)
-            myCart.products.forEach(async(pro)=>{
+            myCart.products.forEach(async (pro) => {
                 console.log('a')
-                await user.notify(pro.product.from,`the an order contain ${pro.product.name} that you sell,the quantity needed is ${pro.number},please prepare this quantity in next couble of hours`)
+                await user.notify(pro.product.from, `the an order contain ${pro.product.name} that you sell,the quantity needed is ${pro.number},please prepare this quantity in next couble of hours`)
             })
             console.log('c')
             const result = await myCart.save()
@@ -148,7 +189,7 @@ class Cart {
         catch (e) {
             if (e.name == 'Error') {
                 Helper.formatMyAPIRes(res, 200, false, e, e.message)
-            }else if (e.name == 'MongoServerError' || e.name == 'ValidationError' || e.name == 'CastError') {
+            } else if (e.name == 'MongoServerError' || e.name == 'ValidationError' || e.name == 'CastError') {
                 Helper.formatMyAPIRes(res, 400, false, e, e.message)
             } else {
                 Helper.formatMyAPIRes(res, 500, false, e, e.message)
@@ -157,17 +198,30 @@ class Cart {
     }
     static resendConfirmationMail = async (req, res) => {
         try {
-            const myCart = await Helper.isThisIdExistInThisModel(req.params.id,cartModel,'cart','products.product','userID')
+            const myCart = await Helper.isThisIdExistInThisModel(req.params.id, cartModel, 'cart', 'products.product', 'userID')
             if (myCart.status != "verification mode") {
                 throw new Error('this action is not for your cart status')
             }
             const confirmation = await tokenModel.creatToken(myCart._id, 0)
-            sendmail(myCart.userID.email,"Please confirm your cart",
-            `<h1>Email Confirmation</h1>
-            <h2>Hello ${myCart.userID.userName}</h2>
-            <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-            <a href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}> Click here</a>
-            </div>`)
+            if(myCart.paymentMethod=='credit'){
+                sendmail(myCart.userID.email, "Please confirm your cart",
+                `<h1>Email Confirmation</h1>
+                <h2>Hello ${myCart.userID.userName}</h2>
+                <p>Thank you for subscribing. Please confirm your email by clicking on the following links</p>
+                <p>let me inform you that by clicking the first you will approve the payment so please </p>
+                <h3>don't do that if you you are not sure you will not change you mind </hh3>
+                <a  href=${myCart.paymentIntentUrl}> Click here first</a>
+                <p>make sure that you clicked the first url</p>
+                <a id="confirm" href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}> then click here</a>
+                </div>`)
+              }else{
+                sendmail(myCart.userID.email, "Please confirm your cart",
+                    `<h1>Email Confirmation</h1>
+                <h2>Hello ${myCart.userID.userName}</h2>
+                <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+                <a href=http://localhost:3000/ecommerce/cart/callbackcartconfirm/${confirmation}> Click here</a>
+                </div>`)
+              }
             Helper.formatMyAPIRes(res, 200, true, {}, 'please check your mail quickly you have 10 mins then you will need to send another confirmation mail')
         }
         catch (e) {
@@ -175,7 +229,7 @@ class Cart {
                 Helper.formatMyAPIRes(res, 200, false, e, e.message)
             } else if (e.name == 'MongoServerError' || e.name == 'ValidationError' || e.name == 'CastError') {
                 Helper.formatMyAPIRes(res, 400, false, e, e.message)
-            }else {
+            } else {
                 Helper.formatMyAPIRes(res, 500, false, e, e.message)
             }
         }
@@ -211,7 +265,7 @@ class Cart {
     }
     static nextStep = async (req, res) => {
         try {
-            const cart = await Helper.isThisIdExistInThisModel(req.params.id, cartModel, 'cart', 'products.product','userID')
+            const cart = await Helper.isThisIdExistInThisModel(req.params.id, cartModel, 'cart', 'products.product', 'userID')
             if (cart.status == 'not completed' || cart.status == "verification mode") {
                 throw new Error('the user didn`t complete and verify his cart')
             }
@@ -224,13 +278,13 @@ class Cart {
                 cart.status = 'received'
             }
             const result = await cart.save()
-            user.notify(cart.userID._id,`Hello ${cart.userID.userName},we need to inform you that your cart ${cart.status} ${cart.status=='in its way'?'wait our representative soon':'please inform us with your review or any complain'}`)
+            user.notify(cart.userID._id, `Hello ${cart.userID.userName},we need to inform you that your cart ${cart.status} ${cart.status == 'in its way' ? 'wait our representative soon' : 'please inform us with your review or any complain'}`)
             sendmail(cart.userID.email,
                 'you cart status',
                 `<h1>Email Confirmation</h1>
           <h2>Hello ${cart.userID.userName}</h2>
           <p>we need to inform you that your cart <h4>${cart.status}</h4></p>
-          ${cart.status=='in it`s way'?'wait our representative soon':'please inform us with your review or any complain'}
+          ${cart.status == 'in it`s way' ? 'wait our representative soon' : 'please inform us with your review or any complain'}
           </div>`)
             Helper.formatMyAPIRes(res, 200, true, result, 'now you can make changes in your cart ')
         } catch (e) {
@@ -245,3 +299,22 @@ class Cart {
     }
 }
 module.exports = Cart
+// async (req,res)=>{
+//     const paymentMethod=await stripe.paymentMethods.create({
+//         type:'card',
+//         card:{
+//             number:'4242424242424242',
+//             exp_month:5,
+//             exp_year:2023,
+//             cvc:314
+//         }
+//     })
+//     const paymentIntent=await stripe.paymentIntents.create({
+//         payment_method:paymentMethod.id,
+//         amount:5000,
+//         currency:'inr',
+//         confirm:true,
+//         payment_method_types:['card'],
+//     })
+//     res.redirect(paymentIntent.next_action.use_stripe_sdk.stripe_js)
+// }

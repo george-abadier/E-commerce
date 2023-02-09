@@ -76,7 +76,13 @@ const cartSchema = mongoose.Schema({
             required: true,
             min: 1
         }
-    }]
+    }],
+    paymentIntentUrl:{
+        type:String
+    },
+    paymentIntentId:{
+        type:String
+    }
 })
 cartSchema.method('updateTotalPrice',function (){
     this .totalPrice=this.products.reduce((total,product)=>{
